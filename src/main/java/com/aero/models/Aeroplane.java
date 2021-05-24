@@ -51,9 +51,9 @@ public class Aeroplane {
             String rowString="";
             for(Seat seat: seatRow){
                 if (seat.getType().equals(SeatType.BLOCKED))
-                    rowString += "      ";
+                    rowString += "       ";
                 else
-                    rowString = rowString + String.format("%03d", seat.getPassengerNumber()) + "-" + seat.getType().label+ "|";
+                    rowString = rowString + String.format("%03d", seat.getPassengerNumber()) + "-" + seat.getType().label+ "  ";
             }
             System.out.println(rowString);
         }
