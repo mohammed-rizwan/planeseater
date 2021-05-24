@@ -38,7 +38,7 @@ public class SeatPlanner {
 
     public void assignPassengers(int numberOfseats) throws Exception {
         if(allocator == null)
-            throw new Exception("Allocator Strategy Unassigned!");
+            setDefaultStrategy();
         if(numberOfseats > this.aeroplane.getMaxseat()- this.aeroplane.getFilled())
             throw new SeatFilledException();
 
@@ -47,5 +47,11 @@ public class SeatPlanner {
 
     public void resetAllocator(){
         allocator = null;
+    }
+
+    private void setDefaultStrategy(){
+        allocator = AllocatorFactory.getAllocator("aisle");
+        allocator.setNext(AllocatorFactory.getAllocator("window"));
+        allocator.getNext().setNext(AllocatorFactory.getAllocator("center"));
     }
 }

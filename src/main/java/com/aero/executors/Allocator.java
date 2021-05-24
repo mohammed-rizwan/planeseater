@@ -6,15 +6,27 @@ import com.aero.models.Seat;
 import com.aero.models.SeatType;
 
 public class Allocator {
-    Allocator next;
-    SeatType seatType;
+    private Allocator next;
+    protected SeatType seatType;
 
     public Allocator(){
         this.seatType = SeatType.CENTER;
     }
 
+    public Allocator getNext() {
+        return next;
+    }
+
     public void setNext(Allocator allocator){
         this.next = allocator;
+    }
+
+    public SeatType getSeatType() {
+        return seatType;
+    }
+
+    public void setSeatType(SeatType seatType) {
+        this.seatType = seatType;
     }
 
     public void allocate(Aeroplane aeroplane, int numberOfSeats){

@@ -9,9 +9,9 @@ public class Main {
         try {
             Aeroplane aeroplane = new Aeroplane();
             SeatPlanner seatPlanner = new SeatPlanner(aeroplane);
-            seatPlanner.arrangeSeats(new int[][]{{6, 2}, {5, 3}});
-            seatPlanner.assignStrategyOrder(new String[]{"aisle", "window", "center",});
-            seatPlanner.assignPassengers(20);
+            seatPlanner.arrangeSeats(new int[][]{{6, 2}, {4,3},{4, 3}, {5, 2}});
+            seatPlanner.assignStrategyOrder(new String[]{"aisle", "window", "center"});
+            seatPlanner.assignPassengers(40);
             aeroplane.printSeatsLayout();
         } catch(Exception e){
             System.out.println(e.getMessage());

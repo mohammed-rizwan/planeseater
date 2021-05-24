@@ -9,7 +9,14 @@ Java (JDK 1.8), Gradle
 1. Run `gradle build`
 1. Run `gradle run`
 
-###Sample Output:
+### Sample:
+
+#### Input:
+1. seatPattern: `[{6, 2}, {4,3},{4, 3}, {5, 2}]`
+1. passenger count: `40`
+1. (optional) assignStrategy: `["aisle", "window", "center"] `If not given default strategy is taken which is same as here.
+
+#### Output:
 ```
 Total seats in the plane: 46
 Total seats filled      : 40

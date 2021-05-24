@@ -14,19 +14,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SeatPlannerTest {
 
-    static Aeroplane aeroplane;
-    static SeatPlanner seatPlanner;
+    Aeroplane aeroplane;
+    SeatPlanner seatPlanner;
 
-    @BeforeAll
-    static void createModel(){
+    @BeforeEach
+    void createModel(){
         aeroplane = new Aeroplane();
         seatPlanner = new SeatPlanner(aeroplane);
     }
 
     @AfterEach
     void tearDown() {
-        SeatsHelper.resetSeating(aeroplane);
-        seatPlanner.resetAllocator();
+        seatPlanner = null;
+        aeroplane = null;
     }
 
     @Test
@@ -34,18 +34,6 @@ class SeatPlannerTest {
         boolean exceptionthrown = false;
         try {
             seatPlanner.arrangeSeats(new int[][]{{}});
-        }catch(Exception e){
-            exceptionthrown = true;
-        }
-        assertTrue(exceptionthrown);
-    }
-
-    @Test
-    void assigningSeatsWithoutStrategy() {
-        boolean exceptionthrown = false;
-        try {
-            seatPlanner.arrangeSeats(new int[][]{{6, 2}, {4, 3}, {3, 2}, {5, 2}});
-            seatPlanner.assignPassengers(30);
         }catch(Exception e){
             exceptionthrown = true;
         }
@@ -66,14 +54,30 @@ class SeatPlannerTest {
     }
 
     @Test
-    void assigningSeatsWithAisleWindowCenterOrder() {
+    void assigningSeatsWithoutStrategy() {
         boolean flag = false;
         try {
             seatPlanner.arrangeSeats(new int[][]{{2, 3},{2, 2}});
-            seatPlanner.assignStrategyOrder(new String[]{"aisle", "window", "center",});
             seatPlanner.assignPassengers(9);
             List<Seat> rowOne = aeroplane.getSeats().get(0);
             if(rowOne.get(0).getPassengerNumber()==5 && rowOne.get(1).getPassengerNumber()==9 && rowOne.get(2).getPassengerNumber()==1)
+                flag = true;
+
+        }catch(Exception e){
+            flag = false;
+        }
+        assertTrue(flag);
+    }
+
+    @Test
+    void assigningSeatsWithWindowAisleCenterOrder() {
+        boolean flag = false;
+        try {
+            seatPlanner.arrangeSeats(new int[][]{{2, 3},{2, 2}});
+            seatPlanner.assignStrategyOrder(new String[]{"window", "aisle", "center"});
+            seatPlanner.assignPassengers(9);
+            List<Seat> rowOne = aeroplane.getSeats().get(0);
+            if(rowOne.get(0).getPassengerNumber()==1 && rowOne.get(1).getPassengerNumber()==9 && rowOne.get(2).getPassengerNumber()==5)
                 flag = true;
 
         }catch(Exception e){
