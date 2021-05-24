@@ -3,6 +3,8 @@ package com.aero.models;
 public class Seat {
     private SeatType type;
     private int passengerNumber;
+    private int rowNumber;
+    private int columnNumber;
 
     public SeatType getType() {
         return type;
@@ -20,13 +22,30 @@ public class Seat {
         this.passengerNumber = passengerNumber;
     }
 
-    public Seat(){
-        this(SeatType.BLOCKED);
+    public int getRowNumber() {
+        return rowNumber;
     }
 
-    public Seat(SeatType type) {
+    public void setRowNumber(int rowNumber) {
+        this.rowNumber = rowNumber;
+    }
+
+    public int getColumnNumber() {
+        return columnNumber;
+    }
+
+    public void setColumnNumber(int columnNumber) {
+        this.columnNumber = columnNumber;
+    }
+
+    public Seat(int rowNumber, int columnNumber){
+        this(rowNumber, columnNumber, SeatType.BLOCKED);
+    }
+
+    public Seat(int rowNumber, int columnNumber, SeatType type) {
         this.type = type;
         this.passengerNumber = 0;
     }
+
 }
 

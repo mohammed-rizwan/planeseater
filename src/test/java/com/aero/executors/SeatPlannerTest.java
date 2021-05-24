@@ -57,7 +57,7 @@ class SeatPlannerTest {
         boolean exceptionthrown = false;
         try {
             seatPlanner.arrangeSeats(new int[][]{{2, 2},{2, 2}});
-            seatPlanner.assignStrategy(new String[]{"aisle", "window", "center",});
+            seatPlanner.assignStrategyOrder(new String[]{"aisle", "window", "center",});
             seatPlanner.assignPassengers(30);
         }catch(Exception e){
             exceptionthrown = true;
@@ -70,7 +70,7 @@ class SeatPlannerTest {
         boolean flag = false;
         try {
             seatPlanner.arrangeSeats(new int[][]{{2, 3},{2, 2}});
-            seatPlanner.assignStrategy(new String[]{"aisle", "window", "center",});
+            seatPlanner.assignStrategyOrder(new String[]{"aisle", "window", "center",});
             seatPlanner.assignPassengers(9);
             List<Seat> rowOne = aeroplane.getSeats().get(0);
             if(rowOne.get(0).getPassengerNumber()==5 && rowOne.get(1).getPassengerNumber()==9 && rowOne.get(2).getPassengerNumber()==1)

@@ -21,12 +21,12 @@ public class Allocator {
         if (numberOfSeats==0)
             return;
 
-        Seat seat = SeatsHelper.findNextAvailable(aeroplane,seatType);
+        Seat seat = SeatsHelper.findNextAvailable(aeroplane,seatType,0,0);
 
         while(seat!=null && numberOfSeats!=0){
             seat.setPassengerNumber(aeroplane.incrementFilled());
             numberOfSeats--;
-            seat = SeatsHelper.findNextAvailable(aeroplane,seatType);
+            seat = SeatsHelper.findNextAvailable(aeroplane,seatType, seat.getRowNumber(),seat.getColumnNumber());
         }
         if(numberOfSeats!=0 && next!=null )
             next.allocate(aeroplane,numberOfSeats);

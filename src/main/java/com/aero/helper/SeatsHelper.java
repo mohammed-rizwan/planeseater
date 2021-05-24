@@ -44,53 +44,58 @@ public class SeatsHelper {
     private static void createSeats(Aeroplane aeroplane,int row, int column, int window, int startColumn){
         for (int i=0;i<row;i++){
             ArrayList<Seat> seatRow;
+            int currentColumn=0;
             if(aeroplane.getSeats().size()<=i){
                 seatRow = new ArrayList<Seat>();
                 aeroplane.getSeats().add(seatRow);
             }else {
                 seatRow= aeroplane.getSeats().get(i);
+                currentColumn = seatRow.size()-1;
             }
             while(seatRow.size()!=startColumn){
-                seatRow.add(new Seat());
+                seatRow.add(new Seat(i,currentColumn++));
             }
 
             for(int j=0;j<column;j++){
                 Seat currentSeat = null;
                 if(j==0) {
                     if(window==-1)
-                        currentSeat = new Seat(SeatType.WINDOW);
+                        currentSeat = new Seat(i,++currentColumn,SeatType.WINDOW);
                     else
-                        currentSeat = new Seat(SeatType.AISLE);
+                        currentSeat = new Seat(i,++currentColumn,SeatType.AISLE);
                 }
                 if(j==column-1) {
                     if(window==1)
-                        currentSeat = new Seat(SeatType.WINDOW);
+                        currentSeat = new Seat(i,++currentColumn,SeatType.WINDOW);
                     else
-                        currentSeat = new Seat(SeatType.AISLE);
+                        currentSeat = new Seat(i,++currentColumn,SeatType.AISLE);
                 }
                 if(currentSeat == null)
-                    currentSeat = new Seat(SeatType.CENTER);
+                    currentSeat = new Seat(i,++currentColumn,SeatType.CENTER);
 
                 seatRow.add(currentSeat);
             }
         }
     }
 
-    public static Seat findNextAvailable(Aeroplane aeroplane, SeatType seatType){
-        Seat seat = null;
+    public static Seat findNextAvailable(Aeroplane aeroplane, SeatType seatType, int fromRowNumber, int fromColumnNumber){
+        Seat availableSeat = null;
         boolean found = false;
-        for(ArrayList<Seat> seatRow: aeroplane.getSeats()){
-            for(Seat iter: seatRow){
-                if(iter.getType().equals(seatType) && iter.getPassengerNumber()==0){
-                    seat = iter;
+        ArrayList<ArrayList<Seat>> seats = aeroplane.getSeats();
+        for(int i=fromRowNumber;i<seats.size();i++) {
+            ArrayList<Seat> seatRow = seats.get(i);
+            for(int j=fromColumnNumber;j<seatRow.size();j++) {
+                Seat seat = seatRow.get(j);
+                if (seat.getType().equals(seatType) && seat.getPassengerNumber() == 0) {
+                    availableSeat = seat;
                     found = true;
                     break;
                 }
             }
-            if(found)
+            if (found)
                 break;
         }
-        return seat;
+        return availableSeat;
     }
 
     public static void resetPassengerArrangement(Aeroplane aeroplane){

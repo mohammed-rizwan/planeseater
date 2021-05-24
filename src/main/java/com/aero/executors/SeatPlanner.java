@@ -16,7 +16,7 @@ public class SeatPlanner {
         SeatsHelper.arrangeSeats(this.aeroplane,seatPattern);
     }
 
-    public void assignStrategy(String[] seatFillingOrder){
+    public void assignStrategyOrder(String[] seatFillingOrder){
         Allocator current = allocator;
         if (seatFillingOrder.length!=0){
             for(String string: seatFillingOrder){
